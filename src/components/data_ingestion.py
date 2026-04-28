@@ -19,9 +19,9 @@ PROJ_ROOT  = os.path.dirname(os.path.dirname(THIS_FILE))  # 2 levels above. (roo
 
 @dataclass
 class DataIngestionConfig:    # paths. for better debugging.
-    train_data_path = os.path.join("artifacts", "data_ingestion", "train.csv")
-    test_data_path = os.path.join("artifacts","data_ingestion", "test.csv")
-    raw_data_path = os.path.join("artifacts","data_ingestion","raw.csv")
+    train_data_path = os.path.join(PROJ_ROOT, "artifacts", "data_ingestion", "train.csv")
+    test_data_path = os.path.join(PROJ_ROOT, "artifacts","data_ingestion", "test.csv")
+    raw_data_path = os.path.join(PROJ_ROOT,"artifacts","data_ingestion","raw.csv")
     
 class DataIngestion:
     def __init__(self):
@@ -35,8 +35,8 @@ class DataIngestion:
             data = pd.read_csv(os.path.join(PROJ_ROOT, "Data", "adult.csv"))
             logging.info("Data has been read")
             
-            os.makedirs(os.path.join(self.ingestion.raw_data_path), exist_ok= True) # directory creation
-            data.to_csv(self.ingestion.raw_data_path) # save it there. to_csv saves the data to the location
+            os.makedirs(os.path.dirname(self.ingestion.raw_data_path), exist_ok= True) # directory creation
+            data.to_csv(self.ingestion.raw_data_path, index = False) # save it there. to_csv saves the data to the location
             logging.info("Raw data has been saved")
             
             # because of dirname, csv file is not created
